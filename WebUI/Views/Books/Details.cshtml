@@ -1,0 +1,48 @@
+﻿@model Domain.Entities.Book
+
+@{
+    ViewBag.Title = "Подробности";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Подробности</h2>
+
+
+<div class="well">
+    <div class="row">
+        <div class="col-xs-9">
+            <h3>
+                <strong>Название:</strong>   <strong>@Model.Name</strong>
+            </h3>
+            <h4>
+                <strong>Автор:</strong>   <strong>@Model.Author</strong>
+            </h4>
+            <h5>
+                <strong>ISBN:</strong> <strong>@Model.ISBN</strong>
+            </h5>
+            <h5>
+                <strong>Год издания:</strong> <strong>@Model.Year</strong>
+            </h5>
+            <h5>
+                <strong>Количество страниц:</strong> <strong>@Model.Pages</strong>
+            </h5>
+        </div>
+        <div class="col-xs-3">
+            <h3>
+                <strong id="price" class="pull-right label label-primary">
+                    @Model.Price.ToString("# руб")
+                </strong>
+            </h3>
+            @using (Html.BeginForm("AddToCart", "Cart"))
+            {
+                <div class="pull-right">
+                    @Html.HiddenFor(x => x.BookId)
+                    @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                    <input type="submit" class="btn btn-success" value="В корзину"/>
+                </div>
+            }
+        </div>
+    </div>
+    <strong>Кратокое описание:</strong> <span class="lead">@Model.Description</span>
+ 
+</div>
